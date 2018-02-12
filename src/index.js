@@ -50,24 +50,30 @@ const countText = (event) => {
   let sanitizedText = {};
   var newTextInput = document.getElementById("textareabox").value.split(" ")
   newTextInput.forEach(function(word){
-    if(sanitizedText[word] === undefined){
-      sanitizedText[word] = 1;
+
+    if(sanitizedText[word.toLowerCase()] === undefined){
+      sanitizedText[word.toLowerCase()] = 1;
       }
     else
-    sanitizedText[word] += 1
-
+    sanitizedText[word.toLowerCase()] += 1
     })
-
   var words = Object.keys(sanitizedText)
   var frequency = Object.values(sanitizedText)
   words.forEach(function(word){
   $('.word-count').append(`<p> ${word}</p>`)
   addWord(word);
   })
-
 }
+
+  //   if(sanitizedText[word] === 1){
+  // $('.word-count').append(`<p> ${word}</p>`)
+  // }
+  // else(sanitizedText[word] > 1){
+  // $('.word-count').append(`<p> ${word}</p>`).css({"font-size": "1em"})
+  // }
 
 $(document).ready(() => {
   getTopWord();
 $('.text-submission').on('click', '.break-down-btn', countText);
+$('.text-submission').on('keypress', '.break-down-btn', countText);
 })
